@@ -11,9 +11,9 @@ const LandingPage: React.FC = () => {
   return (
     <div>
       <Hero />
-      <About />
-      <Process />
+      <About />    
       <Services />
+      <Process />
       <Testimonials />
       <FAQ />
       <CTA />
