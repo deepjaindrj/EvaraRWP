@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Tailwind CSS imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root variables for colors and fonts */
+:root {
+  --bg-primary: #FFFBF1;
+  --font-cinzel: 'Cinzel', serif;
+  --font-cinzel-decorative: 'Cinzel Decorative', serif;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-lora: 'Lora', serif;
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-roboto);
+  background-color: var(--bg-primary);
+  color: #333;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tailwind layer for font utilities */
+@layer utilities {
+  .font-cinzel {
+    font-family: 'Cinzel', serif !important;
+  }
+  
+  .font-cinzel-decorative {
+    font-family: 'Cinzel Decorative', serif !important;
+  }
+  
+  .font-roboto {
+    font-family: 'Roboto', sans-serif !important;
+  }
+  
+  .font-lora {
+    font-family: 'Lora', serif !important;
+  }
+}
+
+/* Custom background class */
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+/* Smooth transitions for interactive elements */
+a, button {
+  transition: all 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a574;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c19653;
+}
