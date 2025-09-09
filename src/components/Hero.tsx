@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center bg-cream-50 mt-28" style={{backgroundColor: '#faf9f7'}}>
+    <section id="home" className="relative min-h-screen flex items-center justify-center bg-[#FFFBF1] mt-28">
       {/* Container with side margins */}
       <div className="relative w-full mx-4 sm:mx-8 xl:mx-auto">
         {/* Background Image Container with rounded corners */}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
@@ -7,7 +7,8 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const location = useLocation();
-  let lastScrollY = 0;
+
+  const lastScrollY = useRef(0); // Use useRef to store the previous scroll position
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,16 +19,16 @@ export default function Header() {
         setIsScrolled(false);
       }
 
-      if (window.scrollY > lastScrollY) {
+      if (window.scrollY > lastScrollY.current) {
         // If scrolling down, hide the navbar
         setIsNavbarVisible(false);
-      } else {
+      } else if (window.scrollY < lastScrollY.current) {
         // If scrolling up, show the navbar
         setIsNavbarVisible(true);
       }
 
-      // Update the last scroll position
-      lastScrollY = window.scrollY;
+      // Update the last scroll position with current scroll
+      lastScrollY.current = window.scrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -64,7 +65,7 @@ export default function Header() {
           ? isScrolled
             ? 'bg-white/95 backdrop-blur-md shadow-lg'
             : 'bg-transparent'
-          : '-top-24'
+          : '-top-24' // Hides the navbar when scrolling down
       }`}
     >
       <div className="mx-auto w-full px-4 sm:px-6 lg:px-8">
