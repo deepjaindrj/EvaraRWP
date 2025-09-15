@@ -3,7 +3,7 @@ import React from 'react';
 const ServicesSection: React.FC = () => {
   return (
     <section className="flex justify-between items-center bg-[#FFFBF1] min-h-screen relative">
-      <div className="flex-1 text-center relative px-12">
+      <div className="flex-1 text-center relative px-12 z-30">
         <p className="font-lora text-xl text-[#BB7F2557] mb-4">Begin your royal journey</p>
         <h2 className="font-cinzel-decorative text-4xl text-[#00223F] mb-8">STEP INTO THE SPLENDOR</h2>
         <div className="max-w-lg mx-auto">
@@ -17,7 +17,7 @@ const ServicesSection: React.FC = () => {
         </button>
       </div>
 
-      <div className="absolute left-[-10vw] top-1/2 transform -translate-y-1/2 z-20">
+      <div className="absolute left-[-10vw] top-1/2 transform -translate-y-1/2 z-10">
         <img
           src="/about_image_03.png"
           alt="Decorative Pattern"
@@ -27,39 +27,39 @@ const ServicesSection: React.FC = () => {
 
       <div className="w-1/2 grid grid-cols-2 gap-0 h-full">
         <div className="relative bg-cover bg-center h-[calc(33vh)] rounded-lg" style={{ backgroundImage: 'url(/service01.jpg)' }}>
-          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4">
-            <h3 className="font-cinzel-decorative text-white text-lg font-900">Custom Wedding Design</h3>
-            <p className="font-lora mt-1 text-sm">Every wedding a royal masterpiece</p>
+          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4 text-center">
+            <h3 className="font-cinzel-decorative text-white text-base font-900">Custom Wedding Design</h3>
+            <p className="font-lora mt-1 text-xs">Every wedding a royal masterpiece</p>
           </div>
         </div>
         <div className="relative bg-cover bg-center h-[calc(33vh)] rounded-lg" style={{ backgroundImage: 'url(/service02.jpg)' }}>
-          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4">
-            <h3 className="font-cinzel-decorative text-white text-lg font-900">Luxury Guest Management</h3>
-            <p className="font-lora mt-1 text-sm">Seamless Comfort for Every Guest</p>
+          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4 text-center">
+            <h3 className="font-cinzel-decorative text-white text-base font-900">Luxury Guest Management</h3>
+            <p className="font-lora mt-1 text-xs">Seamless Comfort for Every Guest</p>
           </div>
         </div>
         <div className="relative bg-cover bg-center h-[calc(33vh)] rounded-lg" style={{ backgroundImage: 'url(/service04.jpg)' }}>
-          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4">
-            <h3 className="font-cinzel-decorative text-white text-lg font-900">Personalized Invitations & Gifting</h3>
-            <p className="font-lora mt-1 text-sm">Stories Written in Every Invitation and Gift</p>
+          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4 text-center">
+            <h3 className="font-cinzel-decorative text-white text-base font-900">Personalized Invitations & Gifting</h3>
+            <p className="font-lora mt-1 text-xs">Stories Written in Every Invitation and Gift</p>
           </div>
         </div>
         <div className="relative bg-cover bg-center h-[calc(33vh)] rounded-lg" style={{ backgroundImage: 'url(/service06.jpg)' }}>
-          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4">
-            <h3 className="font-cinzel-decorative text-white text-lg font-900">Vendor Coordination & Supervision</h3>
-            <p className="font-lora mt-1 text-sm">Trusted Partners, Flawless Execution</p>
+          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4 text-center">
+            <h3 className="font-cinzel-decorative text-white text-base font-900">Vendor Coordination & Supervision</h3>
+            <p className="font-lora mt-1 text-xs">Trusted Partners, Flawless Execution</p>
           </div>
         </div>
         <div className="relative bg-cover bg-center h-[calc(33vh)] rounded-lg" style={{ backgroundImage: 'url(/service03.jpg)' }}>
-          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4">
-            <h3 className="font-cinzel-decorative text-white text-lg font-900">Ritual Coordination</h3>
-            <p className="font-lora mt-1 text-sm">Seamlessly weaving sacred traditions into your celebration</p>
+          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4 text-center">
+            <h3 className="font-cinzel-decorative text-white text-base font-900">Ritual Coordination</h3>
+            <p className="font-lora mt-1 text-xs">Seamlessly weaving sacred traditions into your celebration</p>
           </div>
         </div>
         <div className="relative bg-cover bg-center h-[calc(33vh)] rounded-lg" style={{ backgroundImage: 'url(/service05.jpg)' }}>
-          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4">
-            <h3 className="font-cinzel-decorative text-white text-lg font-900">Grand Venue Selection</h3>
-            <p className="font-lora mt-1 text-sm">Palaces and Heritage, Perfectly Chosen</p>
+          <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-xs flex flex-col justify-center items-center text-white p-4 text-center">
+            <h3 className="font-cinzel-decorative text-white text-base font-900">Grand Venue Selection</h3>
+            <p className="font-lora mt-1 text-xs">Palaces and Heritage, Perfectly Chosen</p>
           </div>
         </div>
       </div>

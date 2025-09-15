@@ -6,6 +6,7 @@ import Services from '../../components/Services';
 import Testimonials from '../../components/Testimonials';
 import FAQ from '../../components/FAQ';
 import CTA from '../../components/CTA';
+import {WeddingTimelineDemo} from '../../components/processSection';
 
 const LandingPage: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const LandingPage: React.FC = () => {
       <Hero />
       <About />    
       <Services />
+      <WeddingTimelineDemo />
       <Process />
       <Testimonials />
       <FAQ />

@@ -13,14 +13,14 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       // Check if we are scrolling down or up
-      if (window.scrollY > 50) {
+      if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
 
-      if (window.scrollY > lastScrollY.current) {
-        // If scrolling down, hide the navbar
+      if (window.scrollY > lastScrollY.current && window.scrollY > 50) {
+        // If scrolling down and past 50px, hide the navbar
         setIsNavbarVisible(false);
       } else if (window.scrollY < lastScrollY.current) {
         // If scrolling up, show the navbar
@@ -39,13 +39,12 @@ export default function Header() {
   const leftNavLinks = [
     { name: 'HOME', href: '/' },
     { name: 'ABOUT', href: '/about' },
-    { name: 'SERVICES', href: '/services' },
+    
   ];
 
   const rightNavLinks = [
-    { name: 'PORTFOLIO', href: '/portfolio' },
-    { name: 'BLOG', href: '/blog' },
-    { name: 'CONTACT', href: '/contact' },
+    { name: 'SERVICES', href: '/services' },
+    { name: 'GALLERY', href: '/gallery' },
   ];
 
   const allNavLinks = [...leftNavLinks, ...rightNavLinks];
@@ -60,25 +59,25 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isNavbarVisible
-          ? isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-lg'
-            : 'bg-transparent'
-          : '-top-24' // Hides the navbar when scrolling down
+      className={`fixed top-0 w-full z-50 transition-transform duration-300 ease-in-out ${
+        isScrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg'
+          : 'bg-transparent'
+      } ${
+        isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
       <div className="mx-auto w-full px-4 sm:px-6 lg:px-8">
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center justify-between h-24 xl:h-28">
           <div className="flex items-center justify-center w-full">
-            <div className="grid grid-cols-7 items-center justify-items-center w-full gap-8 xl:gap-12">
+            <div className="grid grid-cols-5 items-center justify-items-center gap-8 xl:gap-12">
               {/* Left Navigation Links */}
               {leftNavLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`font-normal text-xl relative transition-colors duration-200 ${
+                  className={`font-roboto text-xl relative transition-colors duration-200 ${
                     isActiveRoute(link.href) ? 'text-[#BB7F25]' : 'text-[#BB7F25]'
                   } hover:text-[#BB7F25] group`}
                   style={{ fontWeight: 400 }}
