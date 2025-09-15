@@ -1,12 +1,9 @@
 import React from 'react';
-import Process from '../../components/Process';
-import CTA from '../../components/CTA';
-
+import {WeddingTimelineDemo} from '../../components/processSection';
 const ProcessPage: React.FC = () => {
   return (
     <div>
-      <Process />
-      <CTA />
+      <WeddingTimelineDemo />
     </div>
   );
 };

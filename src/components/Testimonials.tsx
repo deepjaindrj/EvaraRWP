@@ -1,82 +1,181 @@
-import React from 'react';
-import { Star, Quote } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 
-export default function Testimonials() {
+const TestimonialsSection: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Sample testimonials data
   const testimonials = [
     {
-      name: 'Priya & Arjun Sharma',
-      location: 'Udaipur Palace Wedding',
-      text: 'Evara transformed our vision into a majestic reality. The attention to detail and cultural authenticity were unparalleled. Every guest still talks about our magical day.',
-      rating: 5,
-      image: 'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2'
+      id: 1,
+      image: "/service04.jpg", // Left column image
+      avatarImage: "/service05.jpg", // Right column avatar (elliptical)
+      text: "EVARA transformed our vision into a majestic reality. The attention to detail and cultural authenticity were unparalleled.",
+      name: "Priya & Arjun"
     },
     {
-      name: 'Kavya & Rohit Mehta',
-      location: 'Goa Beach Wedding',
-      text: 'From the initial consultation to our last dance, Evara exceeded every expectation. They made our dream beach wedding come true with such elegance and professionalism.',
-      rating: 5,
-      image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2'
+      id: 2,
+      image: "/service05.jpg",
+      avatarImage: "/service07.jpg",
+      text: "Our wedding was beyond our wildest dreams. Every moment was crafted with such elegance and perfection.",
+      name: "Meera & Raj"
     },
     {
-      name: 'Anita & Vikram Singh',
-      location: 'Delhi Heritage Wedding',
-      text: 'The team at Evara understood our vision perfectly and brought it to life beyond our wildest dreams. The coordination was flawless, and the memories are priceless.',
-      rating: 5,
-      image: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2'
+      id: 3,
+      image: "/service07.jpg",
+      avatarImage: "/service04.jpg",
+      text: "The team at EVARA made our special day truly unforgettable. Their expertise in Indian weddings is unmatched.",
+      name: "Ananya & Vikram"
     }
   ];
 
+  // Auto-slide functionality
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
+
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+  };
+
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
-            Tales Told in{' '}
-            <span className="bg-gradient-to-r from-amber-400 to-yellow-600 bg-clip-text text-transparent">
-              Timeless Frames
-            </span>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover the stories of couples who trusted us with their most precious day.
-          </p>
-        </div>
+    <section className="relative w-full bg-[#FFFBF1] overflow-hidden" style={{ minHeight: '120vh' }}>
+      
+      {/* Title */}
+      <div className="relative z-10 flex justify-center pt-16 pb-8">
+        <h2 
+          className="my-12"
+          style={{
+            fontFamily: 'Cinzel Decorative',
+            fontWeight: 400,
+            fontSize: 'clamp(32px, 6vw, 64px)',
+            lineHeight: '100%',
+            letterSpacing: '0%',
+            textAlign: 'center',
+            color: '#BB7F25',
+          }}
+        >
+          Testimonials
+        </h2>
+      </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white rounded-2xl shadow-lg p-8 relative group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              {/* Quote Icon */}
-              <div className="absolute top-4 right-4 text-amber-200 group-hover:text-amber-300 transition-colors duration-200">
-                <Quote size={32} />
-              </div>
+      {/* Carousel Container */}
+      <div className="relative flex-1 flex items-center justify-center ">
+        
+        {/* Previous Button - Left Arrow with #FAF3DF color */}
+        <button 
+          onClick={goToPrevious}
+          className="absolute left-8 z-20 hover:opacity-70 transition-opacity"
+          style={{ top: '50%', transform: 'translateY(-50%)' }}
+        >
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="#FAF3DF" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
 
-              {/* Stars */}
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} size={16} className="fill-amber-400 text-amber-400" />
-                ))}
-              </div>
+        {/* Carousel Content */}
+        <div className="w-full mx-auto">
+          <div className="relative overflow-hidden h-full">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {testimonials.map((testimonial, index) => (
+                <div key={testimonial.id} className="w-full flex-shrink-0 ">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 h-full" style={{ minHeight: '70vh' }}>
+                    
+                    {/* Left Column - Image */}
+                    <div 
+                      className="flex items-center justify-center p-12"
+                      style={{ backgroundColor: '#CFC9B7' }}
+                    >
+                      <img 
+                        src={testimonial.image}
+                        alt={`Testimonial ${index + 1}`}
+                        className=" object-cover max-w-full max-h-full"
+                        style={{
+                          width: 'clamp(250px, 35vw, 400px)',
+                          height: 'clamp(350px, 38vw, 500px)',
+                        }}
+                      />
+                    </div>
 
-              {/* Testimonial Text */}
-              <p className="text-gray-600 leading-relaxed mb-6 italic">
-                "{testimonial.text}"
-              </p>
+                    {/* Right Column - Content */}
+                    <div 
+                      className="flex flex-col items-center justify-center p-8 lg:p-12 space-y-8"
+                      style={{ backgroundColor: '#FAF3DF' }}
+                    >
+                      
+                      {/* Avatar Image - Elliptical */}
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={testimonial.avatarImage}
+                          alt={testimonial.name}
+                          className="object-cover shadow-lg"
+                          style={{
+                            width: 'clamp(100px, 18vw, 180px)',
+                            height: 'clamp(150px, 24vw, 210px)',
+                            borderRadius: '50%',
+                          }}
+                        />
+                      </div>
 
-              {/* Author Info */}
-              <div className="flex items-center gap-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                  <h4 className="font-semibold text-gray-800">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.location}</p>
+                      {/* Testimonial Text */}
+                      <div className="text-center max-w-md">
+                        <p 
+                          className="italic leading-relaxed"
+                          style={{
+                            fontFamily: 'Lora',
+                            fontSize: 'clamp(16px, 2vw, 20px)',
+                            color: '#00223F',
+                            lineHeight: '1.6',
+                          }}
+                        >
+                          "{testimonial.text}"
+                        </p>
+                      </div>
+
+                      {/* Divider Line */}
+                      <div className=" h-px px-4 bg-[#BB7F25]">
+                        <p 
+                          style={{
+                            fontFamily: 'Cinzel',
+                            fontSize: '16px',
+                            color: '#BB7F25',
+                            fontWeight: 500,
+                            marginTop: '4px',
+                          }}
+                        >
+                          {testimonial.name}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
+
+        {/* Next Button - Right Arrow with #CFC9B7 color */}
+        <button 
+          onClick={goToNext}
+          className="absolute right-8 z-20 hover:opacity-70 transition-opacity"
+          style={{ top: '50%', transform: 'translateY(-50%)' }}
+        >
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18L15 12L9 6" stroke="#CFC9B7" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
     </section>
   );
-}
+};
+
+export default TestimonialsSection;
