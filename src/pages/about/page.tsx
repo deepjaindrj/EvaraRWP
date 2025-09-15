@@ -1,9 +1,17 @@
 import React from 'react';
-import About from '../../components/About';
+import FAQPage from '../faq/page';
+import ContactForm from '../../components/ContactForm';
+import AboutSecond from '../../components/aboutSecond';
+import AboutHero from '../../components/About Hero';
+import WhyChooseEvara from '../../components/whyChoose';
 const AboutPage: React.FC = () => {
   return (
     <div>
-      <About />    
+      <AboutHero />
+      <AboutSecond />
+      <WhyChooseEvara />
+      <ContactForm />
+      <FAQPage />    
     </div>
   );
 };

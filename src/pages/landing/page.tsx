@@ -19,7 +19,6 @@ const LandingPage: React.FC = () => {
       <TalesFramesSection />      
       <Testimonials />
       <FAQ />
-      
     </div>
   );
 };
