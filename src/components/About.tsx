@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import { Link } from 'react-router-dom';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -298,13 +299,15 @@ export default function About() {
               </p>
             </div>
 
-            <button
-              ref={ctaRef}
-              className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-2 px-2 font-medium text-xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm"
-            >
-              <span className="relative z-10 font-cinzel">View Services</span>
-              <div className="absolute px-4 inset-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
-            </button>
+            <Link to="/services">
+  <button
+    ref={ctaRef}
+    className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-2 px-2 font-medium text-xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm"
+  >
+    <span className="relative z-10 font-cinzel">View Services</span>
+    <div className="absolute px-4 inset-0 bg-[#BB7F25] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
+  </button>
+</Link>
           </div>
 
           {/* Right Image wrapper with cards */}

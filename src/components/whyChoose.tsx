@@ -1,4 +1,4 @@
-import React from 'react';
+import {Link} from 'react-router-dom';
 
 const WhyChooseEvara = () => {
   return (
@@ -92,10 +92,12 @@ const WhyChooseEvara = () => {
               </div>
 
               {/* Contact Us Button */}
-              <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-3 px-2 font-medium text-xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm">
-                <span className="relative z-10 font-cinzel">Contact Us</span>
-                <div className="absolute px-4 inset-0 bg-[#BB7F25] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
-              </button>
+            <Link to="/contact">
+  <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-3 px-2 font-medium text-xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm">
+    <span className="relative z-10 font-cinzel">Contact Us</span>
+    <div className="absolute px-4 inset-0 bg-[#BB7F25] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
+  </button>
+</Link>
             </div>
           </div>
         </div>

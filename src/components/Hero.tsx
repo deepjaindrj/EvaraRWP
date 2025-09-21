@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -100,10 +101,12 @@ export default function Hero() {
                   transitionDelay: showContent ? '600ms' : '0ms'
                 }}
               >
-                <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#FDD894] text-[#FDD894] py-2 px-2 font-medium text-lg transition-all duration-300 hover:text-black hover:px-4 rounded-sm">
-                  <span className="relative z-10 font-cinzel">View Gallery</span>
-                  <div className="absolute px-4 inset-0 bg-[#FDD894] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
-                </button>
+               <Link to="/gallery">
+  <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#FDD894] text-[#FDD894] py-2 px-2 font-medium text-lg transition-all duration-300 hover:text-black hover:px-4 rounded-sm">
+    <span className="relative z-10 font-cinzel">View Gallery</span>
+    <div className="absolute px-4 inset-0 bg-[#FDD894] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
+  </button>
+</Link>
               </div>
             </div>
           </div>

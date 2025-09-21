@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ServicesSection: React.FC = () => {
   const services = [
@@ -86,18 +87,20 @@ const ServicesSection: React.FC = () => {
             </p>
           </motion.div>
 
-          <motion.button
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-3 px-2 font-medium text-xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm"
-          >
-            <span className="relative z-10 font-cinzel">View Services</span>
-            <div className="absolute px-4 inset-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
-          </motion.button>
+          <Link to="/services">
+  <motion.button
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+    viewport={{ once: true }}
+    whileHover={{ scale: 1.03 }}
+    whileTap={{ scale: 0.98 }}
+    className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-3 px-2 font-medium text-xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm"
+  >
+    <span className="relative z-10 font-cinzel">View Services</span>
+    <div className="absolute px-4 inset-0 bg-[#BB7F25] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
+  </motion.button>
+</Link>
         </motion.div>
       </div>
 

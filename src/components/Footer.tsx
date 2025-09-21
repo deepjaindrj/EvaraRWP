@@ -73,7 +73,7 @@ const FooterSection: React.FC = () => {
                 <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                   <div className="space-y-2 text-center">
                     <a 
-                      href="#"
+                      href="/"
                       className="block hover:text-[#FDD894] transition-colors"
                       style={{
                         fontFamily: 'Lora',
@@ -84,7 +84,7 @@ const FooterSection: React.FC = () => {
                       HOME
                     </a>
                     <a 
-                      href="#"
+                      href="/about"
                       className="block hover:text-[#FDD894] transition-colors"
                       style={{
                         fontFamily: 'Lora',
@@ -93,33 +93,12 @@ const FooterSection: React.FC = () => {
                       }}
                     >
                       ABOUT
-                    </a>
-                    <a 
-                      href="#"
-                      className="block hover:text-[#FDD894] transition-colors"
-                      style={{
-                        fontFamily: 'Lora',
-                        fontSize: 'clamp(12px, 1.5vw, 16px)',
-                        color: '#B8C5D1',
-                      }}
-                    >
-                      SERVICES
-                    </a>
+                    </a>                
                   </div>
                   <div className="space-y-2 text-center">
+                    
                     <a 
-                      href="#"
-                      className="block hover:text-[#FDD894] transition-colors"
-                      style={{
-                        fontFamily: 'Lora',
-                        fontSize: 'clamp(12px, 1.5vw, 16px)',
-                        color: '#B8C5D1',
-                      }}
-                    >
-                      BLOG
-                    </a>
-                    <a 
-                      href="#"
+                      href="/contact"
                       className="block hover:text-[#FDD894] transition-colors"
                       style={{
                         fontFamily: 'Lora',
@@ -129,8 +108,8 @@ const FooterSection: React.FC = () => {
                     >
                       CONTACT
                     </a>
-                    <a 
-                      href="#"
+                   <a 
+                      href="/services"
                       className="block hover:text-[#FDD894] transition-colors"
                       style={{
                         fontFamily: 'Lora',
@@ -138,7 +117,7 @@ const FooterSection: React.FC = () => {
                         color: '#B8C5D1',
                       }}
                     >
-                      PORTFOLIO
+                      SERVICES
                     </a>
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import {Link} from 'react-router-dom';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -242,20 +243,22 @@ const RoyalLegacySection: React.FC = () => {
         </p>
 
         <div ref={btnWrapRef} className="pt-4">
-          <button
-            ref={btnElRef}
-            className="relative px-12 py-4 font-medium text-lg font-roboto border-4 border-double transition-all duration-300 overflow-hidden group"
-            style={{
-              borderColor: '#FDD894',
-              color: '#FDD894',
-              background: 'transparent',
-            }}
-          >
-            <span className="relative z-10 group-hover:text-[#00223F] transition-colors duration-300">
-              Book Consultation
-            </span>
-            <span className="absolute inset-0 bg-[#FDD894] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
-          </button>
+          <Link to="/contact">
+  <button
+    ref={btnElRef}
+    className="relative px-12 py-4 font-medium text-lg font-roboto border-4 border-double transition-all duration-300 overflow-hidden group"
+    style={{
+      borderColor: '#FDD894',
+      color: '#FDD894',
+      background: 'transparent',
+    }}
+  >
+    <span className="relative z-10 group-hover:text-[#00223F] transition-colors duration-300">
+      Book Consultation
+    </span>
+    <span className="absolute inset-0 bg-[#FDD894] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
+  </button>
+</Link>
         </div>
       </div>
     </section>
