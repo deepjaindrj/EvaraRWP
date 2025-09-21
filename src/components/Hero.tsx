@@ -40,7 +40,7 @@ export default function Hero() {
         <div 
           className={`relative bg-cover bg-center bg-no-repeat overflow-hidden transition-all duration-[1500ms] ease-out ${
             isLoaded 
-              ? 'h-[calc(100vh-5rem-1.75rem)] w-full rounded-3xl' 
+              ? 'h-[calc(100vh-5rem-1.75rem)] w-full ' 
               : 'min-h-screen w-screen h-screen fixed inset-0 z-30 rounded-none'
           }`}
           style={{
@@ -58,7 +58,7 @@ export default function Hero() {
 
           {/* Subtle overlay with animated opacity */}
           <div className={`absolute inset-0 bg-black/30 transition-opacity duration-1000 ${
-            isLoaded ? 'opacity-100 rounded-3xl' : 'opacity-60'
+            isLoaded ? 'opacity-100 ' : 'opacity-60'
           }`}></div>
 
           {/* Content with staggered animations */}
