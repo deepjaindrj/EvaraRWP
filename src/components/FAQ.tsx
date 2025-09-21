@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import CircleRound from './circleRound';
 
+
 const FAQSection: React.FC = () => {
   const [openQuestion, setOpenQuestion] = useState<number | null>(0); // First question open by default
+
 
   const faqData = [
     {
@@ -27,9 +29,11 @@ const FAQSection: React.FC = () => {
     }
   ];
 
+
   const toggleQuestion = (id: number) => {
     setOpenQuestion(openQuestion === id ? null : id);
   };
+
 
   return (
     <section className="relative w-full bg-gradient-to-b from-[#FFFBF1] to-[#F8F4E6] overflow-hidden py-16" style={{ minHeight: '125vh' }}>
@@ -61,6 +65,7 @@ const FAQSection: React.FC = () => {
         }}
       />
 
+
       {/* Title */}
       <div className="relative z-10 flex justify-center pt-8 pb-16">
         <h2 
@@ -79,9 +84,10 @@ const FAQSection: React.FC = () => {
         </h2>
       </div>
 
-      {/* Two-column layout */}
+
+      {/* Two-column layout with custom widths and reduced gap */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[45vw_1fr] gap-2 items-start">
           {/* Left: FAQ */}
           <div style={{ marginTop: '56px' }}>
             <div 
@@ -173,5 +179,6 @@ const FAQSection: React.FC = () => {
     </section>
   );
 };
+
 
 export default FAQSection;

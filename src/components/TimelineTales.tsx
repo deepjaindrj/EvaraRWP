@@ -2,8 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const TalesFramesSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollOffset, setScrollOffset] = useState(0);
+  const [startMarquee, setStartMarquee] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [currentOffset, setCurrentOffset] = useState(0);
+  const [animationOffset, setAnimationOffset] = useState(0);
+  
   const sectionRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   // Trigger slide-in when section becomes visible
   useEffect(() => {
@@ -13,7 +19,7 @@ const TalesFramesSection: React.FC = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 } // Earlier trigger - when only 10% visible
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -23,34 +29,97 @@ const TalesFramesSection: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Handle scroll-based carousel movement
+  // Start marquee after slide-in completes
   useEffect(() => {
-    if (!isVisible) return;
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setStartMarquee(true);
+      }, 1500);
 
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
 
-      const rect = sectionRef.current.getBoundingClientRect();
+  // Animation loop for automatic scrolling
+  useEffect(() => {
+    if (!startMarquee || isDragging) return;
+
+    let animationId: number;
+    let startTime: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
       
-      // Start moving much earlier - when images are still clearly visible
-      if (rect.top <= 50) { // Start when section is just 50px past top
-        const progress = Math.abs(rect.top - 50) / 300; // Faster progression over shorter distance
-        setScrollOffset(Math.min(progress * 40, 40)); // Max 40vw movement
-      } else {
-        setScrollOffset(0);
-      }
+      const elapsed = timestamp - startTime;
+      const duration = 8000; // 8 seconds for full cycle (faster than 20s)
+      const progress = (elapsed % duration) / duration;
+      
+      // Calculate offset for seamless loop
+      const maxOffset = -50; // -50% for seamless loop
+      setAnimationOffset(progress * maxOffset);
+      
+      animationId = requestAnimationFrame(animate);
     };
 
-    // Much shorter delay - start scroll movement earlier
-    const timer = setTimeout(() => {
-      window.addEventListener('scroll', handleScroll);
-    }, 1200); // Reduced from 2000ms to 1200ms
+    animationId = requestAnimationFrame(animate);
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
-  }, [isVisible]);
+  }, [startMarquee, isDragging]);
+
+  // Mouse/Touch event handlers for dragging
+  const handleDragStart = (clientX: number) => {
+    setIsDragging(true);
+    setDragStartX(clientX);
+  };
+
+  const handleDragMove = (clientX: number) => {
+    if (!isDragging) return;
+    
+    const deltaX = clientX - dragStartX;
+    const sensitivity = 0.5; // Adjust drag sensitivity
+    setCurrentOffset(deltaX * sensitivity);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    setDragStartX(0);
+    setCurrentOffset(0);
+  };
+
+  // Mouse events
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleDragStart(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    handleDragMove(e.clientX);
+  };
+
+  const handleMouseUp = () => {
+    handleDragEnd();
+  };
+
+  const handleMouseLeave = () => {
+    handleDragEnd();
+  };
+
+  // Touch events
+  const handleTouchStart = (e: React.TouchEvent) => {
+    handleDragStart(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    handleDragMove(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    handleDragEnd();
+  };
 
   return (
     <section 
@@ -58,7 +127,7 @@ const TalesFramesSection: React.FC = () => {
       className="relative w-full bg-[#FFFBF1] overflow-hidden" 
       style={{ height: '160vh' }}
     >
-      {/* Background Pattern Left */}
+      {/* Background patterns remain the same */}
       <div 
         className="absolute opacity-80 z-0"
         style={{
@@ -73,7 +142,6 @@ const TalesFramesSection: React.FC = () => {
         }}
       />
       
-      {/* Background Pattern Right */}
       <div 
         className="absolute opacity-80 z-0"
         style={{
@@ -105,23 +173,36 @@ const TalesFramesSection: React.FC = () => {
         </h2>
       </div>
       
-      {/* Images Carousel */}
+      {/* Draggable Images Carousel */}
       <div 
-        className="absolute z-10 flex items-start gap-3 sm:gap-4 lg:gap-6"
+        ref={carouselRef}
+        className="absolute z-10 flex items-start gap-3 sm:gap-4 lg:gap-6 select-none"
         style={{ 
           left: '47%',
           top: '58%',
-          transform: `translateY(-50%) translateX(${isVisible ? -scrollOffset : 120}vw)`,
+          transform: `translateY(-50%) translateX(${
+            isVisible 
+              ? `calc(${animationOffset}% + ${currentOffset}px)` 
+              : '120vw'
+          })`,
           marginLeft: 'clamp(-90px, -11vw, -140px)',
-          transition: isVisible && scrollOffset === 0 ? 'transform 1500ms ease-out' : 'none'
+          transition: isVisible && !isDragging && !startMarquee ? 'transform 1500ms ease-out' : 'none',
+          cursor: isDragging ? 'grabbing' : 'grab',
         }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
-        {/* Original 3 images */}
+        {/* All images with pointer-events-none to prevent interference */}
         <div className="flex-shrink-0">
           <img 
             src="/service04.jpg" 
             alt="Wedding Service 1"
-            className="object-cover"
+            className="object-cover pointer-events-none"
             style={{
               width: 'clamp(180px, 22vw, 280px)',
               height: 'clamp(320px, 40vw, 500px)',
@@ -133,7 +214,7 @@ const TalesFramesSection: React.FC = () => {
           <img 
             src="/service05.jpg" 
             alt="Wedding Service 2"
-            className="object-cover"
+            className="object-cover pointer-events-none"
             style={{
               width: 'clamp(180px, 22vw, 280px)',
               height: 'clamp(320px, 40vw, 500px)',
@@ -145,7 +226,7 @@ const TalesFramesSection: React.FC = () => {
           <img 
             src="/service07.jpg" 
             alt="Wedding Service 3"
-            className="object-cover"
+            className="object-cover pointer-events-none"
             style={{
               width: 'clamp(180px, 22vw, 280px)',
               height: 'clamp(320px, 40vw, 500px)',
@@ -153,12 +234,12 @@ const TalesFramesSection: React.FC = () => {
           />
         </div>
 
-        {/* Extra images to prevent empty space during scroll */}
+        {/* Enhanced duplicates for seamless dragging */}
         <div className="flex-shrink-0">
           <img 
             src="/service04.jpg" 
             alt="Wedding Service 4"
-            className="object-cover"
+            className="object-cover pointer-events-none"
             style={{
               width: 'clamp(180px, 22vw, 280px)',
               height: 'clamp(320px, 40vw, 500px)',
@@ -170,7 +251,43 @@ const TalesFramesSection: React.FC = () => {
           <img 
             src="/service05.jpg" 
             alt="Wedding Service 5"
-            className="object-cover"
+            className="object-cover pointer-events-none"
+            style={{
+              width: 'clamp(180px, 22vw, 280px)',
+              height: 'clamp(320px, 40vw, 500px)',
+            }}
+          />
+        </div>
+
+        <div className="flex-shrink-0">
+          <img 
+            src="/service07.jpg" 
+            alt="Wedding Service 6"
+            className="object-cover pointer-events-none"
+            style={{
+              width: 'clamp(180px, 22vw, 280px)',
+              height: 'clamp(320px, 40vw, 500px)',
+            }}
+          />
+        </div>
+
+        <div className="flex-shrink-0">
+          <img 
+            src="/service04.jpg" 
+            alt="Wedding Service 7"
+            className="object-cover pointer-events-none"
+            style={{
+              width: 'clamp(180px, 22vw, 280px)',
+              height: 'clamp(320px, 40vw, 500px)',
+            }}
+          />
+        </div>
+
+        <div className="flex-shrink-0">
+          <img 
+            src="/service05.jpg" 
+            alt="Wedding Service 8"
+            className="object-cover pointer-events-none"
             style={{
               width: 'clamp(180px, 22vw, 280px)',
               height: 'clamp(320px, 40vw, 500px)',

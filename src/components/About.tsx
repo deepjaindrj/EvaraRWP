@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,6 +12,24 @@ export default function About() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const paraRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
+  
+  // Refs for card animations
+  const leftCardsRef = useRef<HTMLDivElement[]>([]);
+  const rightCardsRef = useRef<HTMLDivElement[]>([]);
+  
+  const [leftHovered, setLeftHovered] = useState(false);
+  const [rightHovered, setRightHovered] = useState(false);
+
+  // Card data for animations - only 2 cards each side with more tilt
+  const leftCardPositions = [
+    { x: 40, y: -25, rotation: 20, scale: 0.95 },
+    { x: 65, y: 20, rotation: 35, scale: 0.9 },
+  ];
+
+  const rightCardPositions = [
+    { x: -40, y: -25, rotation: -20, scale: 0.95 },
+    { x: -65, y: 20, rotation: -35, scale: 0.9 },
+  ];
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -27,30 +45,25 @@ export default function About() {
     let scrollTriggerInstance: ScrollTrigger | null = null;
 
     const initAnimation = () => {
-      // Create GSAP context scoped to this section
       const ctx = gsap.context(() => {
-        // Kill any existing ScrollTrigger with this ID first
         ScrollTrigger.getAll().forEach(trigger => {
           if (trigger.vars?.id === 'about-section-trigger') {
             trigger.kill();
           }
         });
 
-        // Initial states - elements start outside viewport
         gsap.set(leftImg, { opacity: 1, x: "-100vw", rotation: -8.53 });
         gsap.set(rightImg, { opacity: 1, x: "100vw", rotation: 8.53 });
         gsap.set([tagline, heading, para, cta], { opacity: 0 });
 
-        // Master timeline with smoother timing
         const tl = gsap.timeline({
           defaults: { ease: 'power1.inOut' },
         });
 
-        // Create ScrollTrigger separately for better control
         scrollTriggerInstance = ScrollTrigger.create({
           trigger: section,
           start: 'clamp(top top)',
-          end: '+=180%',
+          end: '+=100%',
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -58,81 +71,72 @@ export default function About() {
           id: 'about-section-trigger',
           animation: tl,
           onRefresh: () => {
-            // Ensure proper state on refresh
             gsap.set(leftImg, { opacity: 1, x: "-100vw", rotation: -8.53 });
             gsap.set(rightImg, { opacity: 1, x: "100vw", rotation: 8.53 });
             gsap.set([tagline, heading, para, cta], { opacity: 0 });
           }
         });
 
-        // Phase A: Images slide in smoothly from sides (0 -> 1.0)
         tl.addLabel('start', 0);
         
         tl.to(leftImg, {
           x: 0,
-          duration: 1.0,
+          duration: 0.8,
           ease: 'power1.inOut'
         }, 'start');
 
         tl.to(rightImg, {
           x: 0,
-          duration: 1.0,
+          duration: 0.8,
           ease: 'power1.inOut'
         }, 'start');
 
-        // Phase B: Text elements simple fade in (0.5 -> 1.5)
-        tl.addLabel('textStart', 0.5);
+        tl.addLabel('textStart', 0);
         
         tl.to(tagline, {
           opacity: 1,
-          duration: 0.4,
+          duration: 0.2,
           ease: 'power1.inOut'
         }, 'textStart');
 
         tl.to(heading, {
           opacity: 1,
-          duration: 0.4,
+          duration: 0.2,
           ease: 'power1.inOut'
-        }, 'textStart+=0.2');
+        }, 'textStart+=0');
 
         tl.to(para, {
           opacity: 1,
-          duration: 0.4,
+          duration: 0.2,
           ease: 'power1.inOut'
-        }, 'textStart+=0.4');
+        }, 'textStart+=0');
 
         tl.to(cta, {
           opacity: 1,
-          duration: 0.4,
+          duration: 0.2,
           ease: 'power1.inOut'
-        }, 'textStart+=0.6');
+        }, 'textStart+=0');
 
-        tl.addLabel('end', 1.8);
+        tl.addLabel('end', 1.2);
 
-      }, section); // Scope to this section element
+      }, section);
 
       return ctx;
     };
 
-    // Initialize with a small delay to prevent conflicts
     const timer = setTimeout(() => {
       const ctx = initAnimation();
-      
-      // Store context for cleanup
       (section as any)._gsapContext = ctx;
     }, 50);
 
-    // Cleanup function
     return () => {
       clearTimeout(timer);
       
-      // Clean up ScrollTrigger instance
       if (scrollTriggerInstance) {
         scrollTriggerInstance.kill();
         scrollTriggerInstance = null;
       }
       
-      // Clean up GSAP context
       if ((section as any)?._gsapContext) {
         (section as any)._gsapContext.revert();
         (section as any)._gsapContext = null;
@@ -140,7 +144,80 @@ export default function About() {
     };
   }, []);
 
-  // Separate effect for global ScrollTrigger refresh - debounced
+  // Card hover animations
+  useEffect(() => {
+    const leftCards = leftCardsRef.current;
+    const rightCards = rightCardsRef.current;
+
+    if (leftHovered && leftCards.length > 0) {
+      gsap.fromTo(leftCards, 
+        { 
+          opacity: 0,
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1
+        },
+        {
+          opacity: 1,
+          x: (i) => leftCardPositions[i]?.x || 0,
+          y: (i) => leftCardPositions[i]?.y || 0,
+          rotation: (i) => leftCardPositions[i]?.rotation || 0,
+          scale: (i) => leftCardPositions[i]?.scale || 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          stagger: 0.1
+        }
+      );
+    } else if (leftCards.length > 0) {
+      gsap.to(leftCards, {
+        opacity: 0,
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: 1,
+        duration: 0.4,
+        ease: "power2.inOut"
+      });
+    }
+  }, [leftHovered]);
+
+  useEffect(() => {
+    const rightCards = rightCardsRef.current;
+
+    if (rightHovered && rightCards.length > 0) {
+      gsap.fromTo(rightCards, 
+        { 
+          opacity: 0,
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1
+        },
+        {
+          opacity: 1,
+          x: (i) => rightCardPositions[i]?.x || 0,
+          y: (i) => rightCardPositions[i]?.y || 0,
+          rotation: (i) => rightCardPositions[i]?.rotation || 0,
+          scale: (i) => rightCardPositions[i]?.scale || 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          stagger: 0.1
+        }
+      );
+    } else if (rightCards.length > 0) {
+      gsap.to(rightCards, {
+        opacity: 0,
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: 1,
+        duration: 0.4,
+        ease: "power2.inOut"
+      });
+    }
+  }, [rightHovered]);
+
   useEffect(() => {
     let refreshTimeout: ReturnType<typeof setTimeout>;
 
@@ -168,19 +245,46 @@ export default function About() {
       className="bg-[#FFFBF1] relative min-h-screen overflow-hidden"
     >
       <div className="w-full h-full">
-        <div className="flex items-center justify-between gap-4 h-screen px-4">
-          {/* Left Image wrapper - shifted more to right */}
-          <div ref={leftImgWrapRef} className="flex-shrink-0 transform ml-16">
-            <img
-              src="/about_image_01.png"
-              alt="Couple Photo 1"
-              className="w-[22vw] h-[65vh] object-cover rounded-lg shadow-2xl"
-            />
+        <div className="flex items-center justify-between gap-12 h-screen px-2">
+          {/* Left Image wrapper with cards */}
+          <div 
+            ref={leftImgWrapRef} 
+            className="flex-shrink-0 transform relative"
+            onMouseEnter={() => setLeftHovered(true)}
+            onMouseLeave={() => setLeftHovered(false)}
+          >
+            {/* Background cards */}
+            <div className="absolute inset-0 pointer-events-none">
+              {[...Array(2)].map((_, index) => (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    if (el) leftCardsRef.current[index] = el;
+                  }}
+                  className="absolute top-0 left-0 w-full h-full opacity-0"
+                  style={{ zIndex: -index - 1 }}
+                >
+                  <img
+                    src={index === 0 ? "https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=1000&auto=format&fit=crop" : "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000&auto=format&fit=crop"}
+                    alt={`Left Background Image ${index + 1}`}
+                    className="w-[22vw] h-[65vh] object-cover rounded-lg shadow-xl"
+                  />
+                </div>
+              ))}
+            </div>
+            
+            {/* Main image */}
+            <div className="relative z-10">
+              <img
+                src="/about_image_01.png"
+                alt="Couple Photo 1"
+                className="w-[22vw] h-[65vh] object-cover rounded-lg shadow-2xl transition-transform duration-300 hover:scale-105"
+              />
+            </div>
           </div>
 
           {/* Center Content */}
-          <div className="flex-1 text-center relative px-4 max-w-3xl mx-auto">
-            {/* Top text block */}
+          <div className="flex-1 text-center relative px-8 max-w-3xl mx-auto">
             <p ref={taglineRef} className="font-lora text-xl text-[#BB7F2557] mb-3">
               Welcome to Evara
             </p>
@@ -188,7 +292,6 @@ export default function About() {
               Where Every Love Story Finds Its Magic
             </h2>
 
-            {/* Bottom text block */}
             <div className="max-w-2xl mx-auto">
               <p ref={paraRef} className="font-lora text-lg sm:text-xl text-[#BB7F25] leading-relaxed mb-8">
                 Let your royal love story unfold in a canvas of timeless elegance where every detail is artfully curated and every memory becomes a masterpiece. Step into EVARA&apos;s world of everlasting celebration, where moments shine with grandeur and passion, echoing through eternity.
@@ -204,17 +307,45 @@ export default function About() {
             </button>
           </div>
 
-          {/* Right Image wrapper - shifted more to right */}
-          <div ref={rightImgWrapRef} className="flex-shrink-0 transform mr-16">
-            <img
-              src="/about_image_02.png"
-              alt="Couple Photo 2"
-              className="w-[22vw] h-[65vh] object-cover rounded-lg shadow-2xl"
-            />
+          {/* Right Image wrapper with cards */}
+          <div 
+            ref={rightImgWrapRef} 
+            className="flex-shrink-0 transform relative"
+            onMouseEnter={() => setRightHovered(true)}
+            onMouseLeave={() => setRightHovered(false)}
+          >
+            {/* Background cards */}
+            <div className="absolute inset-0 pointer-events-none">
+              {[...Array(2)].map((_, index) => (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    if (el) rightCardsRef.current[index] = el;
+                  }}
+                  className="absolute top-0 left-0 w-full h-full opacity-0"
+                  style={{ zIndex: -index - 1 }}
+                >
+                  <img
+                    src={index === 0 ? "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop" : "https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1000&auto=format&fit=crop"}
+                    alt={`Right Background Image ${index + 1}`}
+                    className="w-[22vw] h-[65vh] object-cover rounded-lg shadow-xl"
+                  />
+                </div>
+              ))}
+            </div>
+            
+            {/* Main image */}
+            <div className="relative z-10">
+              <img
+                src="/about_image_02.png"
+                alt="Couple Photo 2"
+                className="w-[22vw] h-[65vh] object-cover rounded-lg shadow-2xl transition-transform duration-300 hover:scale-105"
+              />
+            </div>
           </div>
         </div>
 
-        {/* Static Decorative Pattern - no animations */}
+        {/* Static Decorative Pattern */}
         <div className="absolute bottom-16 left-16 z-20 opacity-60">
           <img
             src="/about_image_03.png"

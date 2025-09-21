@@ -24,33 +24,45 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className={`relative flex items-center justify-center bg-[#FFFBF1] overflow-hidden transition-all duration-1000 ease-out ${
+      className={`relative bg-[#FFFBF1] overflow-hidden transition-all duration-1000 ease-out ${
         isLoaded 
-          ? 'min-h-screen mt-28' 
+          ? 'pt-20' 
           : 'min-h-screen mt-0 fixed inset-0 z-40'
       }`}
     >
-      {/* Container with side margins */}
-      <div className="relative w-full mx-4 sm:mx-8 xl:mx-auto">
+      {/* Container with proper margins */}
+      <div className={`relative w-full transition-all duration-[1500ms] ease-out ${
+        isLoaded 
+          ? 'px-7 pb-7' 
+          : 'px-0 pb-0'
+      }`}>
         {/* Background Image Container with animated positioning */}
         <div 
           className={`relative bg-cover bg-center bg-no-repeat overflow-hidden transition-all duration-[1500ms] ease-out ${
             isLoaded 
-              ? 'min-h-[100vh] w-[96vw] mx-auto rounded-lg' 
+              ? 'h-[calc(100vh-5rem-1.75rem)] w-full rounded-3xl' 
               : 'min-h-screen w-screen h-screen fixed inset-0 z-30 rounded-none'
           }`}
           style={{
-            backgroundImage: 'url("/hero-background.png")',
             transform: isLoaded ? 'scale(1)' : 'scale(1.05)',
+            transformOrigin: 'center center',
           }}
         >
+          {/* Background image layer with hover effect */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 ease-out hover:scale-105"
+            style={{
+              backgroundImage: 'url("/hero-background.png")',
+            }}
+          ></div>
+
           {/* Subtle overlay with animated opacity */}
-          <div className={`absolute inset-0 bg-black/30 rounded-lg transition-opacity duration-1000 ${
-            isLoaded ? 'opacity-100' : 'opacity-60'
+          <div className={`absolute inset-0 bg-black/30 transition-opacity duration-1000 ${
+            isLoaded ? 'opacity-100 rounded-3xl' : 'opacity-60'
           }`}></div>
 
           {/* Content with staggered animations */}
-          <div className="relative z-10 flex items-center justify-center h-[82vh] px-6 sm:px-8 lg:px-12">
+          <div className="relative z-10 flex items-center justify-center h-full px-6 sm:px-8 lg:px-12 pointer-events-none">
             <div className="text-center max-w-4xl">
               {/* Main Heading with slide-up animation */}
               <h1 
@@ -60,7 +72,7 @@ export default function Hero() {
                     : 'opacity-0 transform translate-y-12'
                 }`}
                 style={{
-                  fontSize: 'clamp(48px, 8vw, 90px)',
+                  fontSize: 'clamp(32px, 6vw, 64px)',
                   textShadow: '2px 0px 0px rgba(253, 216, 148, 0.14)',
                   filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4))',
                   transitionDelay: showContent ? '200ms' : '0ms'
@@ -79,7 +91,7 @@ export default function Hero() {
 
               {/* Call to Action Button with delayed slide-up */}
               <div 
-                className={`flex justify-center transition-all duration-1000 ease-out ${
+                className={`flex justify-center transition-all duration-1000 ease-out pointer-events-auto ${
                   showContent 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-8'
@@ -88,7 +100,7 @@ export default function Hero() {
                   transitionDelay: showContent ? '600ms' : '0ms'
                 }}
               >
-                <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#FDD894] text-[#FDD894] py-3 px-2 font-medium text-2xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm">
+                <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#FDD894] text-[#FDD894] py-2 px-2 font-medium text-lg transition-all duration-300 hover:text-black hover:px-4 rounded-sm">
                   <span className="relative z-10 font-cinzel">View Gallery</span>
                   <div className="absolute px-4 inset-0 bg-[#FDD894] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
                 </button>

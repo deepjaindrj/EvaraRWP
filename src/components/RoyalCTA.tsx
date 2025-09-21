@@ -40,7 +40,11 @@ const RoyalLegacySection: React.FC = () => {
         gsap.set(titleEl, { y: -80, color: '#9CA3AF', textShadow: '2px 0px 0px rgba(156,163,175,0.14)' });
         gsap.set(descEl, { y: 60, color: '#9CA3AF' });
         gsap.set(btnWrap, { y: 40, scale: 0.9 });
-        gsap.set(btnEl, { background: 'linear-gradient(90deg, #6B7280 0%, #9CA3AF 100%)', color: '#FFFFFF' });
+        gsap.set(btnEl, { 
+          background: 'transparent',
+          color: '#FDD894',
+          borderColor: '#FDD894'
+        });
 
         // Master timeline - synchronized animations
         const tl = gsap.timeline({
@@ -51,7 +55,7 @@ const RoyalLegacySection: React.FC = () => {
         scrollTriggerInstance = ScrollTrigger.create({
           trigger: section,
           start: 'clamp(top top)',
-          end: '+=300%',
+          end: '+=150%', // reduced scroll area
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -59,13 +63,17 @@ const RoyalLegacySection: React.FC = () => {
           id: 'royal-legacy-trigger',
           animation: tl,
           onRefresh: () => {
-            // Ensure proper state on refresh
+            // state reset
             gsap.set(colorLayer, { clipPath: 'circle(0% at 50% 50%)' });
             gsap.set([titleEl, descEl, btnWrap], { opacity: 0 });
             gsap.set(titleEl, { y: -80, color: '#9CA3AF', textShadow: '2px 0px 0px rgba(156,163,175,0.14)' });
             gsap.set(descEl, { y: 60, color: '#9CA3AF' });
             gsap.set(btnWrap, { y: 40, scale: 0.9 });
-            gsap.set(btnEl, { background: 'linear-gradient(90deg, #6B7280 0%, #9CA3AF 100%)', color: '#FFFFFF' });
+            gsap.set(btnEl, { 
+              background: 'transparent',
+              color: '#FDD894',
+              borderColor: '#FDD894'
+            });
           }
         });
 
@@ -100,13 +108,14 @@ const RoyalLegacySection: React.FC = () => {
           opacity: 1, 
           y: 0, 
           scale: 1,
-          ease: 'back.out(1.7)',
+          ease: 'back.out(1)',
           duration: 1 
-        }, 'start+=0.4');
+        }, 'start+=0.2');
 
         tl.to(btnEl, { 
-          background: 'linear-gradient(90deg, #BB7F25 0%, #FDD894 100%)', 
-          color: '#00223F',
+          background: 'transparent',
+          color: '#FDD894',
+          borderColor: '#FDD894',
           duration: 1 
         }, 'start+=0.4');
 
@@ -235,9 +244,17 @@ const RoyalLegacySection: React.FC = () => {
         <div ref={btnWrapRef} className="pt-4">
           <button
             ref={btnElRef}
-            className="px-6 py-4 rounded-full font-medium text-lg font-roboto shadow-lg transition-transform duration-300 hover:scale-105"
+            className="relative px-12 py-4 font-medium text-lg font-roboto border-4 border-double transition-all duration-300 overflow-hidden group"
+            style={{
+              borderColor: '#FDD894',
+              color: '#FDD894',
+              background: 'transparent',
+            }}
           >
-            Book Consultation
+            <span className="relative z-10 group-hover:text-[#00223F] transition-colors duration-300">
+              Book Consultation
+            </span>
+            <span className="absolute inset-0 bg-[#FDD894] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
           </button>
         </div>
       </div>

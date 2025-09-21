@@ -136,8 +136,8 @@ const CircleRound: React.FC = () => {
             fontWeight: 550,
           }}
         >
-          <textPath href="#arc" startOffset="2%">
-            BOOKING * PLANNING * DESIGNING * MANAGING * EXECUTIONS * CELEBRATIONS * EVENT
+          <textPath href="#arc" startOffset="0%">
+            BOOKING * PLANNING * DESIGNING * MANAGING * EXECUTIONS * CELEBRATIONS * EVENT * TRAVELLING *
           </textPath>
         </text>
       </svg>
