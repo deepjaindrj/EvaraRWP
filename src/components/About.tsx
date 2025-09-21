@@ -92,31 +92,32 @@ export default function About() {
           ease: 'power1.inOut'
         }, 'start');
 
-        tl.addLabel('textStart', 0);
+        // Start text animations earlier - at 30% of the image animation
+        tl.addLabel('textStart', 0.01);
         
         tl.to(tagline, {
           opacity: 1,
-          duration: 0.2,
+          duration: 0.3,
           ease: 'power1.inOut'
         }, 'textStart');
 
         tl.to(heading, {
           opacity: 1,
-          duration: 0.2,
+          duration: 0.3,
           ease: 'power1.inOut'
-        }, 'textStart+=0');
+        }, 'textStart+=0.1');
 
         tl.to(para, {
           opacity: 1,
-          duration: 0.2,
+          duration: 0.3,
           ease: 'power1.inOut'
-        }, 'textStart+=0');
+        }, 'textStart+=0.2');
 
         tl.to(cta, {
           opacity: 1,
-          duration: 0.2,
+          duration: 0.3,
           ease: 'power1.inOut'
-        }, 'textStart+=0');
+        }, 'textStart+=0.3');
 
         tl.addLabel('end', 1.2);
 

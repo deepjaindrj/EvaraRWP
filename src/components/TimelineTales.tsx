@@ -164,7 +164,7 @@ const TalesFramesSection: React.FC = () => {
     <section 
       ref={sectionRef}
       className="relative w-full bg-[#FFFBF1] overflow-hidden" 
-      style={{ height: '160vh' }}
+      style={{ height: '120vh' }}
     >
       {/* Background patterns remain the same */}
       <div 
@@ -196,7 +196,7 @@ const TalesFramesSection: React.FC = () => {
       />
       
       {/* Title */}
-      <div className="relative z-10 flex justify-center pt-36">
+      <div className="relative z-10 flex justify-center pt-24">
         <h2 
           style={{
             fontFamily: 'Cinzel Decorative',
@@ -215,7 +215,7 @@ const TalesFramesSection: React.FC = () => {
       {/* TRUE INFINITE CAROUSEL - NO RESETS */}
       <div 
         ref={carouselRef}
-        className="absolute z-10 flex items-start gap-3 sm:gap-4 lg:gap-6 select-none"
+        className="absolute z-10 flex items-start gap-3 sm:gap-4 lg:gap-6 select-none pt-24"
         style={{ 
           left: '50%',
           top: '58%',

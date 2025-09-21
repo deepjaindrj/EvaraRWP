@@ -130,7 +130,7 @@ export function WeddingTimelineDemo() {
 
   return (
     <div 
-      className="w-full bg-[#FFFBF1] font-sans py-48 relative overflow-hidden"
+      className="w-full bg-[#FFFBF1] font-sans py-36 relative overflow-hidden"
       ref={containerRef}
     >
       {/* Background Feather Images - positioned absolutely behind all content */}
@@ -195,7 +195,7 @@ export function WeddingTimelineDemo() {
         <h2 className="font-cinzel tracking-[-0.07em] text-6xl text-[#BB7F25] ">OUR PROCESS</h2>
       </div>
       
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-10 mt-24">
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-10 mt-32">
         {/* Container with both timeline and images */}
         <div className="flex">
           {/* Left Column - Timeline with Steps */}
