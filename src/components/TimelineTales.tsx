@@ -10,6 +10,7 @@ const TalesFramesSection: React.FC = () => {
   
   const sectionRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number>();
 
   // Trigger slide-in when section becomes visible
   useEffect(() => {
@@ -34,38 +35,33 @@ const TalesFramesSection: React.FC = () => {
     if (isVisible) {
       const timer = setTimeout(() => {
         setStartMarquee(true);
+        // Reset animation offset to 0 when starting marquee from center
+        setAnimationOffset(0);
       }, 1500);
 
       return () => clearTimeout(timer);
     }
   }, [isVisible]);
 
-  // Animation loop for automatic scrolling
+  // TRUE infinite scroll - no resets, just keep moving
   useEffect(() => {
-    if (!startMarquee || isDragging) return;
+    if (!startMarquee || isDragging) {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      return;
+    }
 
-    let animationId: number;
-    let startTime: number;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      
-      const elapsed = timestamp - startTime;
-      const duration = 8000; // 8 seconds for full cycle (faster than 20s)
-      const progress = (elapsed % duration) / duration;
-      
-      // Calculate offset for seamless loop
-      const maxOffset = -50; // -50% for seamless loop
-      setAnimationOffset(progress * maxOffset);
-      
-      animationId = requestAnimationFrame(animate);
+    const animate = () => {
+      setAnimationOffset(prev => prev - 1); // Move 1px left every frame
+      animationRef.current = requestAnimationFrame(animate);
     };
 
-    animationId = requestAnimationFrame(animate);
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
       }
     };
   }, [startMarquee, isDragging]);
@@ -80,13 +76,15 @@ const TalesFramesSection: React.FC = () => {
     if (!isDragging) return;
     
     const deltaX = clientX - dragStartX;
-    const sensitivity = 0.5; // Adjust drag sensitivity
+    const sensitivity = 1;
     setCurrentOffset(deltaX * sensitivity);
   };
 
   const handleDragEnd = () => {
     setIsDragging(false);
     setDragStartX(0);
+    // Apply drag offset to animation offset so it continues from where user left it
+    setAnimationOffset(prev => prev + currentOffset);
     setCurrentOffset(0);
   };
 
@@ -119,6 +117,47 @@ const TalesFramesSection: React.FC = () => {
 
   const handleTouchEnd = () => {
     handleDragEnd();
+  };
+
+  // Calculate total transform - NO RESETS, JUST INFINITE MOVEMENT
+  const getTransform = () => {
+    if (!isVisible) {
+      return 'translateY(-50%) translateX(120vw)'; // Start off-screen right
+    }
+    
+    if (!startMarquee) {
+      return 'translateY(-50%) translateX(-0%)'; // Centered position during slide-in
+    }
+    
+    // TRUE infinite scroll - start from center then move left forever
+    const totalOffset = animationOffset + currentOffset;
+    return `translateY(-50%) translateX(calc(-0% + ${totalOffset}px))`;
+  };
+
+  // Create a MASSIVE array of images so it never runs out
+  const createInfiniteImages = () => {
+    const images = ['/service04.jpg', '/service05.jpg', '/service07.jpg'];
+    const infiniteImages = [];
+    
+    // Create 100+ images to ensure true infinite scroll
+    for (let i = 0; i < 150; i++) {
+      const imageIndex = i % images.length;
+      infiniteImages.push(
+        <div key={i} className="flex-shrink-0">
+          <img 
+            src={images[imageIndex]}
+            alt={`Wedding Service ${i + 1}`}
+            className="object-cover pointer-events-none"
+            style={{
+              width: 'clamp(180px, 22vw, 280px)',
+              height: 'clamp(320px, 40vw, 500px)',
+            }}
+          />
+        </div>
+      );
+    }
+    
+    return infiniteImages;
   };
 
   return (
@@ -173,21 +212,17 @@ const TalesFramesSection: React.FC = () => {
         </h2>
       </div>
       
-      {/* Draggable Images Carousel */}
+      {/* TRUE INFINITE CAROUSEL - NO RESETS */}
       <div 
         ref={carouselRef}
         className="absolute z-10 flex items-start gap-3 sm:gap-4 lg:gap-6 select-none"
         style={{ 
-          left: '47%',
+          left: '50%',
           top: '58%',
-          transform: `translateY(-50%) translateX(${
-            isVisible 
-              ? `calc(${animationOffset}% + ${currentOffset}px)` 
-              : '120vw'
-          })`,
-          marginLeft: 'clamp(-90px, -11vw, -140px)',
+          transform: getTransform(),
           transition: isVisible && !isDragging && !startMarquee ? 'transform 1500ms ease-out' : 'none',
           cursor: isDragging ? 'grabbing' : 'grab',
+          willChange: 'transform',
         }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -197,103 +232,7 @@ const TalesFramesSection: React.FC = () => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* All images with pointer-events-none to prevent interference */}
-        <div className="flex-shrink-0">
-          <img 
-            src="/service04.jpg" 
-            alt="Wedding Service 1"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
-        
-        <div className="flex-shrink-0">
-          <img 
-            src="/service05.jpg" 
-            alt="Wedding Service 2"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
-        
-        <div className="flex-shrink-0">
-          <img 
-            src="/service07.jpg" 
-            alt="Wedding Service 3"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
-
-        {/* Enhanced duplicates for seamless dragging */}
-        <div className="flex-shrink-0">
-          <img 
-            src="/service04.jpg" 
-            alt="Wedding Service 4"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
-
-        <div className="flex-shrink-0">
-          <img 
-            src="/service05.jpg" 
-            alt="Wedding Service 5"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
-
-        <div className="flex-shrink-0">
-          <img 
-            src="/service07.jpg" 
-            alt="Wedding Service 6"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
-
-        <div className="flex-shrink-0">
-          <img 
-            src="/service04.jpg" 
-            alt="Wedding Service 7"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
-
-        <div className="flex-shrink-0">
-          <img 
-            src="/service05.jpg" 
-            alt="Wedding Service 8"
-            className="object-cover pointer-events-none"
-            style={{
-              width: 'clamp(180px, 22vw, 280px)',
-              height: 'clamp(320px, 40vw, 500px)',
-            }}
-          />
-        </div>
+        {createInfiniteImages()}
       </div>
     </section>
   );
