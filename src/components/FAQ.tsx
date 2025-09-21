@@ -42,8 +42,8 @@ const FAQSection: React.FC = () => {
           backgroundRepeat: 'no-repeat',
           width: 'clamp(250px, 30vw, 355px)',
           height: 'clamp(300px, 32vw, 375px)',
-          top: 'clamp(30%, 35vh, 40%)',
-          left: 'clamp(-10px, -1vw, -7px)',
+          top: 'clamp(24%, 25vh, 35%)',
+          left: '-10px',
           transform: 'rotate(0deg)',
         }}
       />
@@ -83,7 +83,7 @@ const FAQSection: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: FAQ */}
-          <div style={{ marginTop: '48px' }}>
+          <div style={{ marginTop: '56px' }}>
             <div 
               className="p-0"
               style={{

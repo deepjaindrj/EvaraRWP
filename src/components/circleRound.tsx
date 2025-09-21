@@ -80,7 +80,7 @@ const CircleRound: React.FC = () => {
   const containerHeight = 700;
 
   const imageDiameter = 560;
-  const imageRightOffset = -50;
+  const imageRightOffset = 50;
   const verticalShiftImage = '-8%'; // Image vertical shift (unchanged)
   const verticalShiftText = '-12%';  // Text arc shifted further up by 4% more
 
@@ -137,7 +137,7 @@ const CircleRound: React.FC = () => {
           }}
         >
           <textPath href="#arc" startOffset="2%">
-            CURATING ROYAL EXPERIENCES • ONE CELEBRATION AT A TIME
+            BOOKING * PLANNING * DESIGNING * MANAGING * EXECUTIONS * CELEBRATIONS * EVENT
           </textPath>
         </text>
       </svg>
