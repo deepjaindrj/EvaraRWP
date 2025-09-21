@@ -3,7 +3,7 @@ import CircleRoundCopy from './circleRound copy';
 
 const SplendorSection: React.FC = () => {
   return (
-   <section className="relative w-full bg-[#FFFBF1] overflow-hidden pt-48 " style={{ minHeight: '125vh' }}>
+   <section className="relative w-full bg-[#FFFBF1] overflow-hidden pt-48 " style={{ minHeight: '100vh' }}>
       {/* Background Patterns */}
       <div 
         className="absolute opacity-90 z-0"

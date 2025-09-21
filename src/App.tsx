@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 
@@ -8,8 +8,8 @@ import AboutPage from './pages/about/page';
 import ServicesPage from './pages/services/page';
 import ProcessPage from './pages/process/page';
 import FAQPage from './pages/faq/page';
-import TestimonialsPage from './pages/testimonials/page';
 import ContactPage from './pages/contact/page';
+import GalleryPage from './pages/gallery/page';
 
 // Component to handle header visibility logic
 function AppContent() {
@@ -53,7 +53,7 @@ function AppContent() {
           <Route path="/process" element={<ProcessPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path='/contact' element={<ContactPage/>  } />
-          <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
         </Routes>
       </main>
     </div>

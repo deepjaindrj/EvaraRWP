@@ -3,6 +3,7 @@ import ServiceHero from '../../components/Service Hero';
 import SplendorSection from '../../components/SplendourSection';
 import FAQPage from '../faq/page';
 import ServiceRows from '../../components/serviceRows';
+import Footer from '../../components/Footer'
 const ServicesPage: React.FC = () => {
   return (
     <div>
@@ -11,6 +12,7 @@ const ServicesPage: React.FC = () => {
       <SplendorSection />
       <ServiceRows />
       <FAQPage />  
+      <Footer />
     </div>
   );
 };

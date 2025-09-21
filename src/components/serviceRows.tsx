@@ -13,7 +13,7 @@ interface ServiceSectionProps {
 
 const defaultServices: ServiceItem[] = [
   {
-    title: "GRAND VENUE SELECTION",
+    title: "Grand Value Selection",
     description: "From ancient palatial halls to sacred garden sanctuaries, we source, secure, and style India's finest venues, crafting the regal canvas where your memories unfold.",
     keyPoints: [
       "Access to exclusive palatial and heritage venues",
@@ -22,7 +22,7 @@ const defaultServices: ServiceItem[] = [
     imageUrl: "/service01.jpg"
   },
   {
-    title: "RITUAL COORDINATION",
+    title: "Ritual Coordination",
     description: "With reverence for every custom, our maverick choreograph each ceremony and plans, ensuring authenticity and joy flow through every sacred moment.",
     keyPoints: [
       "Expert rituals and ritual escort",
@@ -33,7 +33,7 @@ const defaultServices: ServiceItem[] = [
     imageUrl: "/service02.jpg"
   },
   {
-    title: "CUSTOM WEDDING DESIGN",
+    title: "Custom Wedding Design",
     description: "Luxury blooms in the details. Our team imagines photographed silk in color, fragrance, and meaning - infusing divine lighting and entertainment with your vision and legacy.",
     keyPoints: [
       "Bespoke decor concepts and color palettes",
@@ -44,7 +44,7 @@ const defaultServices: ServiceItem[] = [
     imageUrl: "/service03.jpg"
   },
   {
-    title: "LUXURY GUEST MANAGEMENT",
+    title: "Luxury Guest Management",
     description: "From royal welcomes to bespoke hospitality, your guests are enveloped in gracious comfort. Stylish suites every arrival, stay, and parting with thoughtful beauty and ease.",
     keyPoints: [
       "Bespoke decor concepts and color palettes",
@@ -55,7 +55,7 @@ const defaultServices: ServiceItem[] = [
     imageUrl: "/service04.jpg"
   },
   {
-    title: "VENDOR COORDINATION & SUPERVISION",
+    title: "Vendor Coordination & Management",
     description: "Behind every flawless celebration is seamless orchestration. We harmonize every detail—from culminating culinary design, and entertainment elements as one grand symphony.",
     keyPoints: [
       "Bespoke decor concepts and color palettes",
@@ -255,7 +255,7 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({ services = defaultServi
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full pt-32 pb-20 relative overflow-hidden" style={{ backgroundColor: '#FFFBF1' }}>
+    <div ref={containerRef} className="w-full pt-24 pb-20 relative overflow-hidden" style={{ backgroundColor: '#FFFBF1' }}>
       {/* Background Feather Patterns */}
       <div 
         className="absolute opacity-100 pointer-events-none z-0"
@@ -375,10 +375,10 @@ const ServiceSection: React.FC<ServiceSectionProps> = ({ services = defaultServi
                 <p 
                   className="text-center mb-12 px-8 service-description"
                   style={{
-                    fontFamily: 'Roboto, sans-serif',
+                    fontFamily: 'lora, sans-serif',
                     fontWeight: 400,
                     fontSize: '16px',
-                    lineHeight: '100%',
+                    lineHeight: '110%',
                     letterSpacing: '0%',
                     color: '#BB7F25',
                     opacity: 0,
