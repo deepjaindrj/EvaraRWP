@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer';
 
 // Import pages
 import LandingPage from './pages/landing/page';
@@ -10,6 +9,7 @@ import ServicesPage from './pages/services/page';
 import ProcessPage from './pages/process/page';
 import FAQPage from './pages/faq/page';
 import TestimonialsPage from './pages/testimonials/page';
+import ContactPage from './pages/contact/page';
 
 // Component to handle header visibility logic
 function AppContent() {
@@ -52,10 +52,10 @@ function AppContent() {
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/process" element={<ProcessPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path='/contact' element={<ContactPage/>  } />
           <Route path="/testimonials" element={<TestimonialsPage />} />
         </Routes>
       </main>
-      <Footer />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import FAQ from '../../components/FAQ';
 import {WeddingTimelineDemo} from '../../components/processSection';
 import RoyalLegacySection from '../../components/RoyalCTA';
 import TalesFramesSection from '../../components/TimelineTales';
+import Footer from '../../components/Footer';
 
 const LandingPage: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const LandingPage: React.FC = () => {
       <TalesFramesSection />      
       <Testimonials />
       <FAQ />
+      <Footer />
     </div>
   );
 };

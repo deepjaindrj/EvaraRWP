@@ -2,25 +2,24 @@ import React from 'react';
 
 const WhyChooseEvara = () => {
   return (
-    <section className="relative bg-[#FFFBF1] mb-56 px-24 ">
+    <section className="relative bg-[#FFFBF1] mb-56 px-4 sm:px-8 lg:px-24 overflow-hidden ">
       {/* Background Pattern - Top Left */}
-      {/* Background Pattern - Top Left */}
-<div className="absolute top-0 left-0 pointer-events-none z-50">
-  <img 
-    src="/pattern03.png" 
-    alt="" 
-    className="w-[350px] h-[294px] lg:w-[490px] lg:h-[412px] transform rotate-[20.63deg] -translate-x-[120px] lg:-translate-x-[220px] -translate-y-[200px] opacity-100"
-  />
-</div>
+      <div className="absolute top-36 left-0 pointer-events-none z-50">
+        <img 
+          src="/pattern03.png" 
+          alt="" 
+          className="w-[350px] h-[294px] lg:w-[490px] lg:h-[412px] transform rotate-[20.63deg] -translate-x-[120px] lg:-translate-x-[220px] -translate-y-[200px] opacity-100"
+        />
+      </div>
 
-{/* Background Pattern - Bottom Right */}
-<div className="absolute bottom-0 right-0 pointer-events-none z-10" style={{ right: '-56px' }}>
-  <img 
-    src="/pattern04.png" 
-    alt="" 
-    className="w-[250px] h-[210px] lg:w-[369px] lg:h-[310px] translate-y-[220px] opacity-100"
-  />
-</div>
+      {/* Background Pattern - Bottom Right */}
+      <div className="absolute bottom-0 right-0 pointer-events-none z-10 -mr-14">
+        <img 
+          src="/pattern04.png" 
+          alt="" 
+          className="w-[250px] h-[210px] lg:w-[369px] lg:h-[310px] translate-y-[220px] opacity-100"
+        />
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Section */}
@@ -38,7 +37,7 @@ const WhyChooseEvara = () => {
           </h2>
           
           <p 
-            className="text-sm lg:text-[18px] max-w-4xl mx-auto"
+            className="text-sm lg:text-[18px] max-w-4xl mx-auto px-4"
             style={{
               fontFamily: 'Roboto',
               fontWeight: 400,
@@ -59,18 +58,18 @@ const WhyChooseEvara = () => {
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left Column - Image */}
-          <div className="order-2 lg:order-1 pl-8">
-            <div>
+          <div className="order-2 lg:order-1 pl-0 lg:pl-8 flex justify-center lg:justify-start">
+            <div className="w-full max-w-lg lg:max-w-none">
               <img 
                 src="/whychoose.jpg" 
                 alt="EVARA wedding ceremony" 
-                className="w-[75vh] h-[84vh]  object-cover"
+                className="w-full h-[60vh] lg:h-[84vh] object-cover"
               />
             </div>
           </div>
 
           {/* Right Column - Content */}
-          <div className="order-1 lg:order-2 relative border-l  border-[#BB7F25]">
+          <div className="order-1 lg:order-2 relative border-l border-[#BB7F25]">
             <div className="p-6 lg:p-12">
               <div 
                 className="text-sm lg:text-[16px] leading-[120%] space-y-6 mb-12"
@@ -93,10 +92,10 @@ const WhyChooseEvara = () => {
               </div>
 
               {/* Contact Us Button */}
-              <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-3 px-2 font-medium text-xl transition-all duration-300 hover:[#BB7F25] hover:text-black hover:px-4 rounded-sm">
-                  <span className="relative z-10 font-cinzel">Contact Us</span>
-                  <div className="absolute px-4 inset-0  transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
-                </button>
+              <button className="font-cinzel group relative overflow-hidden bg-transparent border-b-2 border-[#BB7F25] text-[#BB7F25] py-3 px-2 font-medium text-xl transition-all duration-300 hover:text-black hover:px-4 rounded-sm">
+                <span className="relative z-10 font-cinzel">Contact Us</span>
+                <div className="absolute px-4 inset-0 bg-[#BB7F25] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></div>
+              </button>
             </div>
           </div>
         </div>

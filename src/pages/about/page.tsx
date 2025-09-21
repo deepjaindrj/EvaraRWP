@@ -4,6 +4,7 @@ import ContactForm from '../../components/ContactForm';
 import AboutSecond from '../../components/aboutSecond';
 import AboutHero from '../../components/About Hero';
 import WhyChooseEvara from '../../components/whyChoose';
+import Footer from '../../components/Footer';
 const AboutPage: React.FC = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const AboutPage: React.FC = () => {
       <WhyChooseEvara />
       <ContactForm />
       <FAQPage />    
+      <Footer />
     </div>
   );
 };
