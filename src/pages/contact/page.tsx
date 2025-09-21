@@ -1,13 +1,13 @@
 import React from 'react';
 import FAQPage from '../faq/page';
 import AboutHero from '../../components/About Hero';
-import ContactForm from '../../components/ContactForm';
+import ContactForm2 from '../../components/ContactForm2';
 import Footer from '../../components/Footer';
 const ContactPage: React.FC = () => {
   return (
     <div>
         <AboutHero />
-        <ContactForm />
+        <ContactForm2 />
         <FAQPage />
         <Footer />
     </div>

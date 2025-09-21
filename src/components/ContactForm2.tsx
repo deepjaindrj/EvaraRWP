@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
-const ContactForm = () => {
+const ContactForm2 = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    phoneNumber: ''
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    typeOfService: ''
   });
 
-  const handleInputChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -20,81 +23,172 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="relative h-[90vh] flex flex-col items-center justify-start pt-16">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/contactform.png')`
-        }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div className="bg-[#FFFBF1] pt-48 pb-32 px-8 lg:px-16 relative overflow-hidden">
+      {/* Background Pattern - Top Left */}
+      <div className="absolute top-36 left-0 pointer-events-none z-0">
+        <img 
+          src="/pillar.png" 
+          alt="" 
+          className="w-[350px] h-[294px] transform -translate-x-[60px] -translate-y-[130px] opacity-100"
+        />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-4xl px-6">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <h3 className="text-[#FDD894] text-lg font-light mb-2 tracking-wide font-lora">Contact Us</h3>
-          <h1 className="text-[#FDD894] text-4xl font-light font-cinzel tracking-tighter">
-            PLAN YOUR WEDDING TODAY
+      <div 
+        className="absolute opacity-90 z-0"
+        style={{
+          backgroundImage: 'url("/pattern03.png")',
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          width: 'clamp(400px, 35vw, 619px)',
+          height: 'clamp(300px, 35vw, 504px)',
+          top: '-5%',
+          right: '-30px',
+          transform: 'rotate(12deg)',
+        }}
+      />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header Section */}
+        <div className="mb-12">
+          <p className="text-[#D19E66] text-lg font-normal tracking-[10%] uppercase" 
+             style={{ 
+               fontFamily: 'Lora, serif', 
+               fontSize: '14.21px', 
+               lineHeight: '160%',
+               fontWeight: '400'
+             }}>
+            Get In Touch
+          </p>
+          <h1 className="text-[#00223F] font-normal tracking-wide" 
+              style={{ 
+                fontFamily: 'Cinzel Decorative, serif', 
+                fontSize: '56.84px', 
+                lineHeight: '110%',
+                fontWeight: '400'
+              }}>
+            Contact Us
           </h1>
         </div>
 
-        {/* Form */}
-        <div className="space-y-16">
-          {/* First Row - Input Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="w-full font-lora bg-transparent border border-[#FDD894] text-[#FDD894] placeholder-[#FDD894] px-4 py-2 text-sm focus:outline-none focus:border-[#BB7F25] transition-colors"
-              />
-            </div>
-            <div>
-              <input
-                type="tel"
-                name="phoneNumber"
-                placeholder="Phone Number"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-                className="w-full font-lora bg-transparent border border-[#FDD894] text-[#FDD894] placeholder-[#FDD894] px-4 py-2 text-sm focus:outline-none focus:border-[#BB7F25] transition-colors"
-              />
-            </div>
-            <div>
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="w-full font-lora bg-transparent border border-[#FDD894] text-[#FDD894] px-4 py-2 text-sm hover:bg-[#FDD894] hover:text-black transition-colors duration-300 font-medium tracking-wide"
-              >
-                Submit
-              </button>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-stretch">
+          {/* Left Column - Image */}
+          <div className="order-2 lg:order-1">
+            <div 
+              className="w-full h-96 lg:h-full bg-gray-300"
+              style={{
+                backgroundImage: `url('/contactform.png')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
             </div>
           </div>
 
-          {/* Horizontal Line */}
-          <div className="w-full h-px bg-[#FDD894] opacity-100"></div>
+          {/* Right Column - Contact Information and Form */}
+          <div className="order-1 lg:order-2 flex flex-col space-y-6">
+            {/* First Row - Office and Email */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Office Section */}
+              <div>
+                <h3 className="text-[#FDD894] text-xl font-lora mb-4">Office</h3>
+                <div className="space-y-1 text-[#00223F]">
+                  <p>Boutique Bloom, 123 Petal Lane,</p>
+                  <p>Floral City, FL 54321, USA</p>
+                </div>
+              </div>
 
-          {/* Second Row - Contact Information Display */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <p className="font-lora text-[#FDD894] text-sm border border-[#FDD894] px-4 py-2">
-                Contact: +91 8989076231
-              </p>
+              {/* Email Section */}
+              <div>
+                <h3 className="text-[#FDD894] text-xl font-lora mb-4">E-mail</h3>
+                <div className="space-y-1 text-[#00223F]">
+                  <p>abc@gmail.com</p>
+                  <p>bcd@gmail2.com</p>
+                </div>
+              </div>
             </div>
+
+            {/* Second Row - Call Section */}
             <div>
-              <p className="font-lora text-[#FDD894] text-sm border border-[#FDD894] px-4 py-2">
-                E-mail: evara.info@gmail.com
-              </p>
+              <h3 className="text-[#FDD894] text-xl font-lora mb-4">Call</h3>
+              <div className="space-y-1 text-[#00223F]">
+                <p>+91 9630000080</p>
+                <p>+91 9926446622</p>
+              </div>
             </div>
-            <div>
-              <p className="font-lora text-[#FDD894] text-sm border border-[#FDD894] px-4 py-2">
-                Address: 21, Navneet Tower
-              </p>
+
+            {/* Contact Form */}
+            <div className="space-y-6 pt-4 flex-1">
+              {/* First Row - Name Fields */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-b border-gray-300 text-[#00223F] placeholder-gray-500 py-3 text-sm focus:outline-none focus:border-[#2D1B69] transition-colors font-roboto"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-b border-gray-300 text-[#00223F] placeholder-gray-500 py-3 text-sm focus:outline-none focus:border-[#2D1B69] transition-colors font-roboto"
+                  />
+                </div>
+              </div>
+
+              {/* Second Row - Phone and Email */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-b border-gray-300 text-[#00223F] placeholder-gray-500 py-3 text-sm focus:outline-none focus:border-[#2D1B69] transition-colors font-roboto"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-b border-gray-300 text-[#00223F] placeholder-gray-500 py-3 text-sm focus:outline-none focus:border-[#2D1B69] transition-colors font-roboto"
+                  />
+                </div>
+              </div>
+
+              {/* Third Row - Type of Service */}
+              <div>
+                <input
+                  type="text"
+                  name="typeOfService"
+                  placeholder="Type of Service"
+                  value={formData.typeOfService}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b border-gray-300 text-[#00223F] placeholder-gray-500 py-3 text-sm focus:outline-none focus:border-[#2D1B69] transition-colors font-roboto"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-6">
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="bg-transparent border border-[#D4B08A] text-[#D4B08A] px-8 py-3 text-sm hover:bg-[#D4B08A] hover:text-white transition-all duration-300 font-lora tracking-wide rounded-full"
+                >
+                  Submit →
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -103,4 +197,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default ContactForm2;
