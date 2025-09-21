@@ -421,7 +421,7 @@ const Gallery: React.FC<GalleryProps> = ({ images, className = '' }) => {
   const displayImages = images.slice(0, 4);
 
   return (
-    <div className={`relative w-full bg-[#FFFBF1] min-h-screen pt-20 px-8 ${className}`}>
+    <div className={`relative w-full bg-[#FFFBF1] min-h-screen pt-20 px-8 overflow-hidden ${className}`}>
       {/* Background Patterns - Now properly behind all content */}
       <div 
         className="absolute opacity-100 pointer-events-none -z-10"
